@@ -10,5 +10,5 @@ Inputs can be given by two methods
     
  
  
-![SS1 (Custom)](https://user-images.githubusercontent.com/92641951/214368577-5752465b-2c4a-4b88-93df-926e8281b05e.jpg)
+![SS1 (Small)](https://user-images.githubusercontent.com/92641951/214368769-07859b90-b3b2-490d-af88-19e6f087bf4f.jpg)
 
