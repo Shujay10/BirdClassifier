@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         fromGal = findViewById(R.id.gallery);
         fromCam = findViewById(R.id.camara);
 
+        // To Copy text from Textview to Clipboard
         text.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         fromCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //fromCamara();
+                fromCamara();
             }
         });
 
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fromGallery(){
 
+        // To open gallery to select images
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
@@ -104,16 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void fromCamara(){
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(MediaStore.Images.Media.TITLE, "New Picture");
-        contentValues.put(MediaStore.Images.Media.DESCRIPTION, "From the camera");
-        image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-
-
-        //Camera intent
-
+        // To open camera to capture image
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE);
     }
 
@@ -123,31 +117,33 @@ public class MainActivity extends AppCompatActivity {
         // From Gallery
         if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
-            // Use the image URI as needed
+
+            // Sending the result to ML model [Image URI -> Bitmap -> ML model  ]
             try {
                 InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
                 image.setImageURI(imageUri);
                 model(bitmap);
-                // Use the bitmap as needed
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
+
         // From Camera
-        if(requestCode == IMAGE_CAPTURE_CODE && resultCode == RESULT_OK){
-            Bitmap bitmap = null;
-            String photoPath = image_uri.toString();
-            bitmap = BitmapFactory.decodeFile(photoPath);
-            System.out.println("Here");
-            System.out.println(image_uri);
+        if(requestCode == IMAGE_CAPTURE_CODE && resultCode == RESULT_OK && data !=null){
+
+            // Sending the result to ML model [Captured Image -> Bitmap -> ML model  ]
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             image.setImageBitmap(bitmap);
+            model(bitmap.copy(Bitmap.Config.ARGB_8888,true));
+
         }
 
     }
 
     private void model(Bitmap bitmap){
 
+        // Loaded Bird classifier ML model
         try {
             Birdclassifier model = Birdclassifier.newInstance(MainActivity.this);
 
@@ -158,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
             int ind = 0;
             float max = probability.get(0).getScore();
-
+            // Finding the highest probability
             for(int i=0;i< probability.size();i++){
 
                 if(max < probability.get(i).getScore()){
@@ -172,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
             text.setText(out.getLabel());
 
             model.close();
-        } catch (IOException e) {
-            // TODO Handle the exception
+        } catch (IOException ignored) {
+
         }
 
     }
