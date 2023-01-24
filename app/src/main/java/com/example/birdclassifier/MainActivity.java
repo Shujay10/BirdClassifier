@@ -42,7 +42,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int IMAGE_CAPTURE_CODE = 1000;
     TextView text;
     ImageView image;
     ImageButton fromGal;
@@ -51,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     static Uri image_uri;
 
     private static final int GALLERY_REQUEST_CODE = 1;
+    private static final int IMAGE_CAPTURE_CODE = 1000;
 
     @Override
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
