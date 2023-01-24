@@ -8,5 +8,7 @@ Inputs can be given by two methods
     * Camera
     * Gallery
     
-![SS1](https://user-images.githubusercontent.com/92641951/214367605-1d7c1ee5-1350-4cdc-89b9-49ef2257797c.jpg)
-![SS2](https://user-images.githubusercontent.com/92641951/214367653-f23bbbb1-88c5-47e9-80be-ad0586edf229.jpg)
+ 
+ 
+![SS1 (Custom)](https://user-images.githubusercontent.com/92641951/214368577-5752465b-2c4a-4b88-93df-926e8281b05e.jpg)
+
