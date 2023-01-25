@@ -24,7 +24,10 @@ This Android app uses machine learning to classify images of birds and provide t
     
 ## Contribute
 
-   * API : https://github.com/notGman/Birds_API
+   * ML model : https://tfhub.dev/google/aiy/vision/classifier/birds_V1/1
+   * REST API : https://github.com/notGman/Birds_API
+ 
+ ## Output
  
 ![SS1 (Small)](https://user-images.githubusercontent.com/92641951/214368769-07859b90-b3b2-490d-af88-19e6f087bf4f.jpg)
 ![SS3 (Small)](https://user-images.githubusercontent.com/92641951/214640576-927a75a8-f61c-4f7c-8e84-0d19e904556a.jpg)
